@@ -20,7 +20,8 @@ public class RegistroTempoOnline {
         return status;
     }
 
+    @Override
     public String toString() {
-
+        return nomeDisciplina + " " + tempoOnlineUsado + "/" + tempoOnlineEsperado;
     }
 }
