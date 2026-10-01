@@ -26,6 +26,25 @@ public class Disciplina {
         }
     }
 
-    public
+    public double calculaMedia() {
+
+        double media = 0;
+        for (int i = 0; i < notas.length(); i++) {
+            media += notas[i];
+        }
+        return media/4;
+    }
+
+    public boolean aprovado() {
+        if (calculaMedia() >= 7) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.nomeDisciplina  + " " + this.horasEstudo + " " + this.calculaMedia() + " " + this.notas;
+    }
 
 }
