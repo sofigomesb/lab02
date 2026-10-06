@@ -6,16 +6,18 @@ public class RegistroResumos {
     private int numeroDeResumos;
     private int iproximo;
     private int limite;
-
+// numeroDeResumos não está sendo inicializado, isso causava erro no meu código
+    // limite e numerodeResumos tem a mesma função
     public RegistroResumos(int numeroDeResumos) {
         this.limite = numeroDeResumos;
         this.iproximo = 0;
         this.tema = new String[numeroDeResumos];
         this.conteúdo = new String[numeroDeResumos];
         this.limite = numeroDeResumos;
+        this.numeroDeResumos = numeroDeResumos;
 
     }
-
+// da para otimizar, if e else tem quase o mesmo código.
     public void adiciona(String tema, String conteúdo) {
         if (iproximo < limite) {
             this.tema[iproximo] = tema;
@@ -48,12 +50,12 @@ public class RegistroResumos {
 
     public String imprimeResumos() {
         String tiposResumos = "- ";
-        for (int i = 0; i < tema.length - 1; i++) {
+        for (int i = 0; i < this.iproximo - 1; i++) {
             tiposResumos += tema[i];
             tiposResumos += " | ";
         }
-        tiposResumos += tema[tema.length-1];
-        return "- " + numeroDeResumos + " resumo(s) cadastrado(s)" + "\n" + tiposResumos;
+        tiposResumos += tema[(this.iproximo)-1];
+        return "- " + this.iproximo + " resumo(s) cadastrado(s)" + "\n" + tiposResumos;
     }
 
     public int conta() {
@@ -67,7 +69,7 @@ public class RegistroResumos {
     }
 
     public boolean temResumo(String t) {
-        for (int i = 0; i < tema.length; i++) {
+        for (int i = 0; i < this.iproximo; i++) {
             if (tema[i].equals(t)) {
                 return true;
             }

@@ -70,4 +70,3 @@ public class Coisa {
     }
 }
 
-Exibindo Coisa.java…

@@ -1,5 +1,7 @@
 package lab2;
 
+import java.util.Arrays;
+
 public class Disciplina {
     private String nomeDisciplina;
     private int horasEstudo;
@@ -7,6 +9,7 @@ public class Disciplina {
 
     public Disciplina(String nomeDisciplina) {
         this.nomeDisciplina = nomeDisciplina;
+        this.notas = new double[4];
     }
 
     public void cadastraHoras(int horas) {
@@ -27,16 +30,17 @@ public class Disciplina {
             this.notas[3] = valorNota;
         }
     }
-
+// O 4 pode ser usado como constante private static final
     public double calculaMedia() {
 
         double media = 0;
-        for (int i = 0; i < notas.length(); i++) {
+        for (int i = 0; i < notas.length; i++) {
             media += notas[i];
         }
         return media/4;
     }
-
+// podia ser constante, ex: NOTA_DEAPROVAÇÃO = 7
+    // If não ncessário, bastava return calculaMedia() >= que já retorna true ou false
     public boolean aprovado() {
         if (calculaMedia() >= 7) {
             return true;
@@ -46,7 +50,7 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return this.nomeDisciplina  + " " + this.horasEstudo + " " + this.calculaMedia() + " " + this.notas;
+        return this.nomeDisciplina  + " " + this.horasEstudo + " " + this.calculaMedia() + " " + Arrays.toString(this.notas);
     }
 
 }
