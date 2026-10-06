@@ -1,37 +1,68 @@
 package lab2;
 
+/**
+* Registra os resumos dos estudantes. Esses registros devem conter
+* o tema e uma descrição dos seus respectivos conteúdos, além do
+* número total de resumos e uma variável que define o índice do próximo
+* item a ser adicionado nos temas e nos seus conteúdos.
+ */
 public class RegistroResumos {
+    /**
+     * Os temas dos resumos.
+     */
     private String[] tema;
+    /**
+     * Sobre o quê são os resumos
+     */
     private String[] conteúdo;
+    /**
+     * Quantidade total de resumos
+     */
     private int numeroDeResumos;
+    /**
+     * Índice do próximo resumo a ser adicionado nos arrays tema e conteúdo
+     */
     private int iproximo;
-    private int limite;
-// numeroDeResumos não está sendo inicializado, isso causava erro no meu código
-    // limite e numerodeResumos tem a mesma função
+
+    /**
+    * Constrói os registros de resumos a partir do número de resumos.
+    * Cria dois arrays, de tema e de conteúdo, do tamanho da quantidade
+    * total de resumos. O índice do resumo a ser adicionado começa sempre
+    * com zero.
+    *
+    * @param numeroDeResumos quantidade total de resumos
+     */
     public RegistroResumos(int numeroDeResumos) {
-        this.limite = numeroDeResumos;
         this.iproximo = 0;
         this.tema = new String[numeroDeResumos];
         this.conteúdo = new String[numeroDeResumos];
-        this.limite = numeroDeResumos;
         this.numeroDeResumos = numeroDeResumos;
 
     }
-// da para otimizar, if e else tem quase o mesmo código.
+
+    /**
+    * Adiciona o tema e o conteúdo ao próximo índice dos arrays
+    * de temas e de conteúdos.
+    *
+    * @param tema nome do tema
+    * @param conteúdo descrição do tema, seu conteúdo
+     */
     public void adiciona(String tema, String conteúdo) {
-        if (iproximo < limite) {
-            this.tema[iproximo] = tema;
-            this.conteúdo[iproximo] = conteúdo;
-            this.iproximo += 1;
-        }
-        else {
+        if (iproximo >= numeroDeResumos) {
             this.iproximo = 0;
-            this.tema[iproximo] = tema;
-            this.conteúdo[iproximo] = conteúdo;
-            this.iproximo += 1;
         }
+
+        this.tema[iproximo] = tema;
+        this.conteúdo[iproximo] = conteúdo;
+        this.iproximo += 1;
     }
 
+    /**
+    * Retorna uma String que representa os resumos. A representação
+    * segue o formato "Tema: Conteúdo".
+    *
+    * @return a representação dos temas e dos conteúdos de cada resumo.
+     */
     public String[] pegaResumos() {
         String[] resumos;
 
@@ -39,15 +70,25 @@ public class RegistroResumos {
             resumos = new String[iproximo];
         }
         else {
-            resumos = new String[limite];
+            resumos = new String[numeroDeResumos];
         }
 
         for (int i = 0; i < resumos.length; i++) {
-            resumos[i] = tema[i] + ": " + conteúdo[i];
+            resumos[i] = String.valueOf(new Resumo(tema[i], conteúdo[i]));
         }
         return resumos;
     }
 
+    /**
+    * Retorna a String que representa a quantidade de resumos cadastrados
+    * e os tipos de cada resumo. A representação segue o formato:
+    * "Resumos:
+    * - Número de resumos resumo(s) cadastrado(s)
+    * - Tipos de resumos (separados por '|')"
+    *
+    * @return a representação em String da quantidade de resumos e
+    * dos tipos cadastrados.
+     */
     public String imprimeResumos() {
         String tiposResumos = "- ";
         for (int i = 0; i < this.iproximo - 1; i++) {
@@ -58,6 +99,11 @@ public class RegistroResumos {
         return "- " + this.iproximo + " resumo(s) cadastrado(s)" + "\n" + tiposResumos;
     }
 
+    /**
+    * Retorna o inteiro que representa a quantidade de resumos cadastrados.
+    *
+    * @return o inteiro que define a quantidade total de resumos
+     */
     public int conta() {
         int cont = 0;
         for (int i = 0; i < tema.length; i++) {
@@ -68,6 +114,12 @@ public class RegistroResumos {
         return cont;
     }
 
+    /**
+     * Retorna o boolean que define se o aluno inseriu o resumo do respectivo tema.
+     * Caso tenha inserido, retorna true, caso contrário, retorna false.
+     * @param t o tema a ser procurado
+     * @return o boolean que define se tem algum resumo ou não
+     */
     public boolean temResumo(String t) {
         for (int i = 0; i < this.iproximo; i++) {
             if (tema[i].equals(t)) {
