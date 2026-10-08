@@ -22,6 +22,14 @@ public class Disciplina {
      * Notas das avaliações da matéria
      */
     private double[] notas;
+    /**
+     * Define o número de notas registradas da disciplina.
+     */
+    private int numeroNotas;
+    /**
+     * Pesos de cada uma das notas.
+     */
+    private int[] pesosNotas;
 
     /**
     * Constrói uma disciplina a partir do seu nome.
@@ -32,9 +40,42 @@ public class Disciplina {
      */
     public Disciplina(String nomeDisciplina) {
         this.nomeDisciplina = nomeDisciplina;
-        this.notas = new double[4];
+        this.numeroNotas = 4;
+        this.notas = new double[numeroNotas];
+        this.horasEstudo = 0;
     }
 
+    /**
+     * Constrói uma disciplina a partir do seu nome e do número de notas a serem
+     * adicionadas. O campo array notas começa com o tamanho da quantidade de notas
+     * que serão adicionadas.
+     *
+     * @param nomeDisciplina nome da matéria cursada
+     * @param numeroNotas quantidade de notas da disciplina
+     */
+    public Disciplina(String nomeDisciplina, int numeroNotas) {
+        this.nomeDisciplina = nomeDisciplina;
+        this.numeroNotas = numeroNotas;
+        this.notas = new double[numeroNotas];
+        this.horasEstudo = 0;
+    }
+
+    /**
+     * Constrói uma disciplina a partir do seu nome, do número de notas a serem
+     * adicionadas e do array de pesos de cada nota. Os campos array notas e pesos notas
+     * começam com o tamanho da quantidade de notas que serão adicionadas.
+     *
+     * @param nomeDisciplina nome da matéria cursada
+     * @param numeroNotas quantidade de notas da disciplina
+     * @param pesosNotas pesos de cada nota
+     */
+    public Disciplina(String nomeDisciplina, int numeroNotas, int[] pesosNotas) {
+        this.nomeDisciplina = nomeDisciplina;
+        this.numeroNotas = numeroNotas;
+        this.pesosNotas = new int[numeroNotas];
+        this.notas = new double[numeroNotas];
+        this.horasEstudo = 0;
+    }
     /**
     * Adiciona a quantidade de horas estudadas pelo aluno.
     *
@@ -74,10 +115,12 @@ public class Disciplina {
     public double calculaMedia() {
 
         double media = 0;
+        int somaPesos = 0;
         for (int i = 0; i < notas.length; i++) {
-            media += notas[i];
+            media += notas[i] * pesosNotas[i];
+            somaPesos += pesosNotas[i];
         }
-        return media/4;
+        return media/somaPesos;
     }
 
     /**

@@ -1,4 +1,5 @@
 package lab2;
+import java.util.Arrays;
 
 /**
 * Registra os resumos dos estudantes. Esses registros devem conter
@@ -127,5 +128,33 @@ public class RegistroResumos {
             }
         }
         return false;
+    }
+
+    /**
+     * Retorna uma lista de Strings com os temas onde a palavra buscada faz parte do conteúdo,
+     * ignorando se a chave de pesquisa está em minúscula ou em maiúscula. O array retornado
+     * é apresentado em ordem alfabética.
+     *
+     * @param chaveDeBusca a palavra que será buscada no conteúdo.
+     * @return o array de Strings que contêm os temas nos quais a palavra está inserida no
+     * conteúdo, em orem alfabética.
+     */
+    public String[] busca(String chaveDeBusca) {
+        int cont = 0;
+        for (String c : conteúdo) {
+            if (c.toLowerCase().contains(chaveDeBusca.toLowerCase())) {
+                cont += 1;
+            }
+        }
+
+        String[] buscaTemas = new String[cont];
+
+        for (int i = 0; i < conteúdo.length; i++) {
+            if (conteúdo[i].toLowerCase().contains(chaveDeBusca.toLowerCase())) {
+                buscaTemas[i] = tema[i];
+            }
+        }
+        Arrays.sort(buscaTemas);
+        return buscaTemas;
     }
 }
