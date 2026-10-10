@@ -43,6 +43,8 @@ public class Disciplina {
         this.numeroNotas = 4;
         this.notas = new double[numeroNotas];
         this.horasEstudo = 0;
+        this.pesosNotas = new int[numeroNotas];
+        Arrays.fill(pesosNotas, 1);
     }
 
     /**
@@ -58,6 +60,8 @@ public class Disciplina {
         this.numeroNotas = numeroNotas;
         this.notas = new double[numeroNotas];
         this.horasEstudo = 0;
+        this.pesosNotas = new int[numeroNotas];
+        Arrays.fill(pesosNotas, 1);
     }
 
     /**

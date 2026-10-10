@@ -2,26 +2,22 @@ package lab2;
 import java.util.Arrays;
 
 /**
-* Registra os resumos dos estudantes. Esses registros devem conter
-* o tema e uma descrição dos seus respectivos conteúdos, além do
-* número total de resumos e uma variável que define o índice do próximo
-* item a ser adicionado nos temas e nos seus conteúdos.
+* Registra os resumos dos estudantes. Esses registros devem conter os resumos definidos
+* pela classe Resumo, onde são definidos o tema e uma descrição dos seus respectivos conteúdos.
+ * Na classe RegistroResumos, também é definido o número total de resumos e uma variável que
+ * define o índice do próximo item a ser adicionado nos temas e nos seus conteúdos.
  */
 public class RegistroResumos {
     /**
-     * Os temas dos resumos.
+     * Array que contêm os resumos, definidos pela classe Resumo.
      */
-    private String[] tema;
+    private Resumo[] resumos;
     /**
-     * Sobre o quê são os resumos
-     */
-    private String[] conteúdo;
-    /**
-     * Quantidade total de resumos
+     * Quantidade total de resumos.
      */
     private int numeroDeResumos;
     /**
-     * Índice do próximo resumo a ser adicionado nos arrays tema e conteúdo
+     * Índice do próximo resumo a ser adicionado nos arrays tema e conteúdo.
      */
     private int iproximo;
 
@@ -35,8 +31,7 @@ public class RegistroResumos {
      */
     public RegistroResumos(int numeroDeResumos) {
         this.iproximo = 0;
-        this.tema = new String[numeroDeResumos];
-        this.conteúdo = new String[numeroDeResumos];
+        this.resumos = new Resumo[numeroDeResumos];
         this.numeroDeResumos = numeroDeResumos;
 
     }
@@ -53,8 +48,7 @@ public class RegistroResumos {
             this.iproximo = 0;
         }
 
-        this.tema[iproximo] = tema;
-        this.conteúdo[iproximo] = conteúdo;
+        this.resumos[iproximo] = new Resumo(tema, conteúdo);
         this.iproximo += 1;
     }
 
@@ -65,19 +59,22 @@ public class RegistroResumos {
     * @return a representação dos temas e dos conteúdos de cada resumo.
      */
     public String[] pegaResumos() {
-        String[] resumos;
+        String[] mostra;
 
-        if (tema[iproximo] == null) {
-            resumos = new String[iproximo];
+        if (this.resumos[iproximo] == null) {
+            mostra = new String[iproximo];
+            for (int i = 0; i < iproximo; i++) {
+                mostra[i] = resumos[i].getTema() + ": " + resumos[i].getConteúdo();
+            }
         }
         else {
-            resumos = new String[numeroDeResumos];
+            mostra = new String[numeroDeResumos];
+            for (int i = 0; i < numeroDeResumos; i++) {
+                mostra[i] = resumos[i].getTema() + ": " + resumos[i].getConteúdo();
+            }
         }
 
-        for (int i = 0; i < resumos.length; i++) {
-            resumos[i] = String.valueOf(new Resumo(tema[i], conteúdo[i]));
-        }
-        return resumos;
+        return mostra;
     }
 
     /**
@@ -93,10 +90,10 @@ public class RegistroResumos {
     public String imprimeResumos() {
         String tiposResumos = "- ";
         for (int i = 0; i < this.iproximo - 1; i++) {
-            tiposResumos += tema[i];
+            tiposResumos += resumos[i].getTema();
             tiposResumos += " | ";
         }
-        tiposResumos += tema[(this.iproximo)-1];
+        tiposResumos += resumos[(this.iproximo)-1].getTema();
         return "- " + this.iproximo + " resumo(s) cadastrado(s)" + "\n" + tiposResumos;
     }
 
@@ -107,8 +104,8 @@ public class RegistroResumos {
      */
     public int conta() {
         int cont = 0;
-        for (int i = 0; i < tema.length; i++) {
-            if (!(tema[i] == null)) {
+        for (int i = 0; i < resumos.length; i++) {
+            if (!(resumos[i] == null)) {
                 cont += 1;
             }
         }
@@ -122,9 +119,18 @@ public class RegistroResumos {
      * @return o boolean que define se tem algum resumo ou não
      */
     public boolean temResumo(String t) {
-        for (int i = 0; i < this.iproximo; i++) {
-            if (tema[i].equals(t)) {
-                return true;
+        if (this.resumos[iproximo] == null) {
+            for (int i = 0; i < this.iproximo; i++) {
+                if (resumos[i].getTema().equals(t)) {
+                    return true;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < this.numeroDeResumos; i++) {
+                if (resumos[i].getTema().equals(t)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -141,17 +147,17 @@ public class RegistroResumos {
      */
     public String[] busca(String chaveDeBusca) {
         int cont = 0;
-        for (String c : conteúdo) {
-            if (c.toLowerCase().contains(chaveDeBusca.toLowerCase())) {
+        for (int i = 0; i < resumos.length; i++) {
+            if (resumos[i].getConteúdo().toLowerCase().contains(chaveDeBusca.toLowerCase())) {
                 cont += 1;
             }
         }
 
         String[] buscaTemas = new String[cont];
 
-        for (int i = 0; i < conteúdo.length; i++) {
-            if (conteúdo[i].toLowerCase().contains(chaveDeBusca.toLowerCase())) {
-                buscaTemas[i] = tema[i];
+        for (int i = 0; i < resumos.length; i++) {
+            if (resumos[i].getConteúdo().toLowerCase().contains(chaveDeBusca.toLowerCase())) {
+                buscaTemas[i] = resumos[i].getConteúdo();
             }
         }
         Arrays.sort(buscaTemas);
