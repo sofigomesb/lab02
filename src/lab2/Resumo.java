@@ -49,11 +49,12 @@ public class Resumo {
     }
 
     /**
-     * Retorna a String que representa o tema e o conteúdo de respectico resumo.
+     * Retorna a String que representa o tema e o conteúdo de respectivo resumo.
      * A representação segue o formato "Tema: Conteúdo".
      *
      * @return a representação em String de um resumo.
      */
+    @Override
     public String toString() {
         return this.tema + ": " + this.conteúdo;
     }

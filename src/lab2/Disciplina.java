@@ -3,9 +3,9 @@ package lab2;
 import java.util.Arrays;
 
 /**
-* Representação de uma matéria de estudos. Toda disciplina
-* precisa de um nome, as horas de estudo dedicadas à ela e
-* quatro notas correspondentes.
+* Representação de uma disciplina de estudos. Toda disciplina
+* precisa de um nome, as horas de estudo dedicadas à ela, as
+ * notas e seus pesos correspondentes.
 *
 * @author Sofia Gomes Braga
  */
@@ -69,14 +69,14 @@ public class Disciplina {
      * adicionadas e do array de pesos de cada nota. Os campos array notas e pesos notas
      * começam com o tamanho da quantidade de notas que serão adicionadas.
      *
-     * @param nomeDisciplina nome da matéria cursada
+     * @param nomeDisciplina nome da disciplina cursada
      * @param numeroNotas quantidade de notas da disciplina
-     * @param pesosNotas pesos de cada nota
+     * @param pesosNotas array com os pesos de cada nota
      */
     public Disciplina(String nomeDisciplina, int numeroNotas, int[] pesosNotas) {
         this.nomeDisciplina = nomeDisciplina;
         this.numeroNotas = numeroNotas;
-        this.pesosNotas = new int[numeroNotas];
+        this.pesosNotas = Arrays.copyOf(pesosNotas, numeroNotas);
         this.notas = new double[numeroNotas];
         this.horasEstudo = 0;
     }
@@ -90,31 +90,22 @@ public class Disciplina {
     }
 
     /**
-    * Cadastra as quatro da matéria no array notas.
+    * Cadastra ou atualiza o valor de uma nota da disciplina.
     *
-    * @param nota nota a ser cadastrada entre 1, 2, 3 e 4
+    * @param nota número da nota a ser cadastrada
     * @param valorNota a nota tirada pelo aluno
      */
     public void cadastraNota(int nota, double valorNota) {
-        if (nota == 1) {
-            this.notas[0] = valorNota;
-        }
-        else if (nota == 2) {
-            this.notas[1] = valorNota;
-        }
-        else if (nota == 3) {
-            this.notas[2] = valorNota;
-        }
-        else {
-            this.notas[3] = valorNota;
-        }
+       if (nota >= 1 && nota <= numeroNotas) {
+           this.notas[nota - 1] = valorNota;
+       }
     }
 
     /**
-    * Retorna o double que representa a média total das
-    * notas da disciplina.
+    * Calcula a média das notas da disciplina considerando os pesos
+     * definidos para cada avaliação.
     *
-    * @return a média das quatro notas do aluno.
+    * @return a média das notas do aluno.
      */
     public double calculaMedia() {
 

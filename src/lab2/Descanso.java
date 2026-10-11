@@ -20,9 +20,8 @@ public class Descanso {
     private int numeroSemanas;
 
     /**
-    * Constrói o descanso a partir das horas totais descansadas
-    * e do número de semanas. Começa com os campos horasdescanso
-    * e numeroSemanas iguais a zero.
+    * Constrói um objeto Descanso com as horas totais descansadas
+    * e o número de semanas inicializados em zero.
      */
     public Descanso() {
         this.horasDescanso = 0;
@@ -30,9 +29,9 @@ public class Descanso {
     }
 
     /**
-    * Define as horas de descanso totais.
+    * Define a quantidade total de horas de descanso registradas.
     *
-    * @param horasDescanso as horas de descanso do aluno
+    * @param horasDescanso quantidade total de horas de descanso.
      */
     public void defineHorasDescanso(int horasDescanso) {
         this.horasDescanso = horasDescanso;
@@ -61,7 +60,7 @@ public class Descanso {
         if (numeroSemanas == 0 || horasDescanso == 0) {
             return status;
         }
-        if (horasDescanso/numeroSemanas >= 26) {
+        if (horasDescanso >= 26 * numeroSemanas) {
             status = "descansado";
         }
         return status;
